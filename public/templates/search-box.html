@@ -1,0 +1,55 @@
+<div class="text-center">
+  <form name="searchForm" class="search" ng-submit="searchBoxCtrl.submit(searchForm)" novalidate>
+    <div class="input-group input-group-sm" ng-class="{ 'has-error' : !searchBoxCtrl.isValid(searchForm) }">
+      <input id="q" type="text" class="form-control" placeholder="Search..." required ng-model="searchBoxCtrl.query">
+
+      <a href="" class="show-options" 
+         ng-hide="searchBoxCtrl.showOptions" 
+         ng-click="searchBoxCtrl.toggleOptions()">
+        options
+      </a>
+      
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="submit">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </span>
+    </div>
+    
+    <div class="options" ng-show="searchBoxCtrl.showOptions">
+      <div class="heading">
+        <h1>Options</h1>
+        <button type="button" class="close" ng-click="searchBoxCtrl.toggleOptions()">&times;</button>
+      </div>
+      <div class="body">
+        <ul>
+          <li class="col-md-4">
+            <label for="filtering">Available View:</label>
+            <select id="filtering" ng-model="searchBoxCtrl.opts.filtering">
+              <option value="" selected="selected">Any</option>
+              <option value="preview">Preview</option>
+              <option value="full">Full View</option>
+            </select>
+          </li>
+          <li class="col-md-4">
+            <label for="printType">Document Type:</label>
+            <select id="printType" ng-model="searchBoxCtrl.opts.printType">
+              <option value="" selected="selected">Any</option>
+              <option value="books">Only Books</option>
+              <option value="magazines">Only Magazine</option>
+            </select>
+          </li>                     
+          <li class="col-md-4">
+            <label for="orderBy">Sorted by:</label>
+            <select id="orderBy" ng-model="searchBoxCtrl.opts.orderBy">
+              <option value="" selected="selected">Relevance</option>
+              <option value="newest">Newest</option>
+            </select>
+          </li>
+        </ul>
+
+        <button class="btn btn-danger btn-sm pull-right" type="button" ng-click="searchBoxCtrl.resetOptions()">Reset</button>
+      </div>
+    </div>
+  </form>
+</div>

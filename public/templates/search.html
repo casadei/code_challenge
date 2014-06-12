@@ -1,0 +1,93 @@
+<div ng-show="searchCtrl.loading">
+  <h1>Loading... <img src="assets/loading.gif" /></h1>
+
+</div>
+
+<div ng-show="searchCtrl.hasError()" class="alert alert-danger">
+  Ops, something went wrong. Please try again.
+</div>
+
+<div ng-show="searchCtrl.hasNoResult()">
+  <h1>No books found, change your search and try again.</h1>
+</div>
+
+<div ng-show="searchCtrl.hasResults()">
+  <div class="search-header">
+    <h1>
+      We've found {{searchCtrl.total | number}}
+      <ng-pluralize count="searchCtrl.books.length" when="{'1': 'result', 'other': 'results'}"></ng-pluralize>
+
+      <div class="btn-group btn-group-sm pull-right">
+        <button type="button" class="btn" 
+                ng-class="{ 'btn-active': searchCtrl.showAsList, 'btn-default': searchCtrl.showAsGallery }"
+                ng-click="searchCtrl.toggleViewMode()">
+
+          <span class="glyphicon glyphicon-th-list"></span>
+        </button>
+        <button type="button" class="btn"
+                ng-class="{ 'btn-active': searchCtrl.showAsGallery, 'btn-default': searchCtrl.showAsList }"
+                ng-click="searchCtrl.toggleViewMode()">
+
+          <span class="glyphicon glyphicon-th"></span>
+        </button>      
+      </div>
+    </h1>
+  </div>
+
+  <ul class="books" ng-controller="BooksCtrl as bookCtrl" 
+                    ng-class="{ list: searchCtrl.showAsList, gallery: searchCtrl.showAsGallery } ">
+    <li ng-repeat="book in searchCtrl.books">
+      <div class="details">
+        <div class="cover">
+          <a ng-href="{{book.link}}" title="{{book.title}}">
+            <img ng-src="{{bookCtrl.getBestImage(book)}}" />
+          </a>
+        </div>
+        <div class="content">
+          <div class="header">
+            <a ng-href="{{book.link}}" class="title" title="{{book.title}}">
+              {{book.title | friendlyLimit : 100}}
+            </a>
+            <span class="authors" ng-show="book.authors">
+              by {{book.authors | listify | friendlyLimit : 75  }} 
+            </span>
+          </div>
+          <div class="publishing" ng-show="book.vpublisher || book.date">
+            Published 
+            <span ng-show="book.publisher">
+              by {{book.publisher}}
+            </span>
+            <span ng-show="book.date">
+              on {{book.date | date : 'longDate'}}
+            </span>
+          </div>
+          <div class="price">
+            <span ng-hide="book.sale" class="unavailable">not for sale</span>
+            <span ng-show="book.sale"  class="available">
+              FROM {{book.price | currency : book.currency + ' '}}
+            </span>
+          </div>
+          <div class="description hidden-xs">
+            {{book.description | friendlyLimit : 400 }}
+          </div>
+
+          <a ng-href="{{book.link}}" class="btn btn-success btn-sm">View it on Google</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="text-center" ng-show="searchCtrl.hasPagination">
+    <ul class="pagination">
+      <li ng-class="{ disabled: !searchCtrl.hasPreviousPage }">
+        <a ng-href="{{searchCtrl.previousPageUrl()}}">&laquo;</a>
+      </li>
+      <li ng-repeat="page in searchCtrl.closePages()" ng-class="{ active: searchCtrl.isCurrentPage(page) }">
+        <a ng-href="{{searchCtrl.changePageUrl(page)}}">{{page}}</a>
+      </li>
+      <li ng-class="{ disabled: !searchCtrl.hasNextPage }">
+        <a ng-href="{{searchCtrl.nextPageUrl()}}">&raquo;</a>
+      </li>
+    </ul>
+  </div>
+</div>

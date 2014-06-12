@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="codeChallenge">
+  <head>
+    <title>CodeChallenge</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+      <div class="container">
+        <div class="navbar">
+          <ul>
+            <li><a ng-href="#/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          </ul>
+        </div>
+        <div class="brand">
+          <a href="http://www.woboinc.com">
+            <img src="assets/woboinc.png" />
+          </a>
+          <div class="text-center">Code Challenge</div>
+        </div>          
+        
+        <search-box></search-box>
+        
+        <div ng-view></div>
+      </div>
+  </body>
+</html>
