@@ -8,7 +8,7 @@ RSpec.describe Api::BooksController, :type => :controller do
       get :index, params
 
       parsed = JSON.parse(response.body).with_indifferent_access
-      expect(parsed[:errors].length).to eq(1)
+      expect(parsed[:errors].length).to be(1)
       expect(parsed[:errors].first).to eq(expectedMessage)
   end
 
@@ -58,6 +58,6 @@ RSpec.describe Api::BooksController, :type => :controller do
 
     parsed = JSON.parse(response.body).with_indifferent_access
 
-    expect(parsed.nil?).to eq(false)
+    expect(parsed.nil?).to be(false)
   end
 end

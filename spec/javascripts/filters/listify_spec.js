@@ -5,8 +5,8 @@ describe("listify should", function () {
 
   it("return own input when it is not an array", inject(function (listifyFilter) {
     expect(listifyFilter("string")).toEqual("string");
-    expect(listifyFilter(1)).toEqual(1);
-    expect(listifyFilter(true)).toEqual(true);
+    expect(listifyFilter(1)).toBe(1);
+    expect(listifyFilter(true)).toBe(true);
   }));
 
   it("return empty string when input is an empty array", inject(function (listifyFilter) {

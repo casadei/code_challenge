@@ -21,9 +21,9 @@ RSpec.describe GoogleBooks, :type => :model do
 
       response = GoogleBooks.find({ :q => query }, 1, ip)  
 
-      expect(response.success).to eq(true)
-      expect(response.data[:totalItems]).to eq(61)
-      expect(response.data[:items].length).to eq(0)
+      expect(response.success).to be(true)
+      expect(response.data[:totalItems]).to be(61)
+      expect(response.data[:items].length).to be(0)
     end
 
     it "should calculate correct startIndex corresponding to page" do
@@ -32,7 +32,7 @@ RSpec.describe GoogleBooks, :type => :model do
 
       response = GoogleBooks.find({ :q => query }, 2, ip)  
 
-      expect(response.success).to eq(true)
+      expect(response.success).to be(true)
     end
   end
 
@@ -44,10 +44,10 @@ RSpec.describe GoogleBooks, :type => :model do
 
       response = GoogleBooks.find({ :q => query }, 1, ip)  
 
-      expect(response.success).to eq(true)
+      expect(response.success).to be(true)
 
       hash = response.to_own_notation
 
-      expect(hash[:pages]).to eq(4)
+      expect(hash[:pages]).to be(4)
     end
 end
