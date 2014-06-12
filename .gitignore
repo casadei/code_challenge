@@ -19,4 +19,4 @@
 /node_modules
 
 # Ignore bower components
-/vendor/bower_components
+/vendor/assets/bower_components
