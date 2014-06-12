@@ -50,6 +50,7 @@ You also can view Jasmine's reports through http://localhost:3000/specs in your 
 Unfortunatelly I'm also commited with another things (mainly my full time job and a master degree of Computer Science) and so I could not finish on time all things that I wanted to:
 
 - Reach 100% of test coverage;
+- Write functional tests;
 - Refactor the SASS;
 - Improve the semantic of HTML;
 - Create more Angular directives to represent data (like book);
