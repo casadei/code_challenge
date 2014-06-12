@@ -37,8 +37,10 @@ class GoogleBooks
     uri.query = URI.encode_www_form(params)
     response = Net::HTTP.get_response(uri)
     
+    parsed = response.body unless response.nil?
+
     # construct model
-    new(params, JSON.parse(response.body).with_indifferent_access, response.is_a?(Net::HTTPSuccess))
+    new(params, JSON.parse(parsed).with_indifferent_access, response.is_a?(Net::HTTPSuccess))
   end
 
   private 

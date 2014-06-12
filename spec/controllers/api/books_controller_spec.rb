@@ -7,7 +7,7 @@ RSpec.describe Api::BooksController, :type => :controller do
   def test_validation(params = nil, expectedMessage)
       get :index, params
 
-      parsed = JSON.parse(response.body).with_indifferent_access
+      parsed = JSON.parse(response.body).with_indifferent_access unless response.nil?
       expect(parsed[:errors].length).to be(1)
       expect(parsed[:errors].first).to eq(expectedMessage)
   end
@@ -56,7 +56,7 @@ RSpec.describe Api::BooksController, :type => :controller do
 
     expect(response.code).to eq("200")
 
-    parsed = JSON.parse(response.body).with_indifferent_access
+    parsed = JSON.parse(response.body).with_indifferent_access unless response.nil?
 
     expect(parsed.nil?).to be(false)
   end
