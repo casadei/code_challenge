@@ -1,49 +1,73 @@
 Code Challenge for Software Engineer
 ====================================
 
-This is a coding challenge for a software engineer position with Woboinc.
+This is a coding challenge for Software Engineering position with WoboInc. 
 
-## Instructions
-1. Fork this repository using your personal GitHub account.
-2. Complete the project (per description below) on your fork.
-3. Push all changes on your fork, then submit a Pull Request on Github.
+It's a small project that makes use of:
+- SASS (pre-processor);
+- Twitter Bootstrap 3;
+- Angular;
+- Bower;
+- Rails;
 
-## Alternate instructions
-1. As an alternative to creating a fork on GitHub, you can simply email a zip file of your code to [culley@woboinc.com](culley@woboinc.com)
+A search engine was created to satisfy the challenge requisites. Although the focus of my project is on client side, 
+I've made a small abstraction* of the Google Books API in order to demonstrate some knowledge of server side too.
 
-## Challenge description
-Background: Woboinc develops software in Ruby & Javascript.  We primarily use Ruby on Rails and node.js.  For our front-end development we use jQuery and Bootstrap, but are actively pursuing work in AngularJS and Foundation.
+* I belive that is not the optimal solution in the real world. I'd probably choose to make requests directly from Google API without intermediaries.
 
-Objective: One of our clients wants to build a simple interface for college students to find textbooks for classes in which they are enrolled.  Using the [Amazon Product Advertising API](https://affiliate-program.amazon.com/gp/advertising/api/detail/main.html), we need you to build a simple search interface.  This interface should search for BOOKS only (not other products on Amazon).  That is, products suitable for a classroom.  Once searched, the results should be displayed in a simple and easy-to-read manner.
+This project is benefited with two levels of cache. One on client that stores requests made by user while he is on the page and another on server abstraction that stores the searches for one hour.
 
-*Alternative APIs*:  The Amazon API is really tricky to set up.  As alternatives, try the [Google Books API](https://developers.google.com/books/) or [New York Times Bestsellers List API](http://developer.nytimes.com/docs/best_sellers_api).
+I also tried to make a responsive site with a nice user experience for mobile resolutions.
 
-Indvidual titles in search results should include the following information:
-- Book Title
-- Author Name
-- Publisher Name
-- Publication Date
-- Edition (if available)
-- Price
-- Format (i.e. Hardcover, Paperback, Kindle Edition, etc.)
 
-It is up to you, the developer, to focus on backend or front-end work.  If you focus on backend work, we will not critique your front-end development.  If you focus on front-end work, we will not critique your backend integrations.
+[Here](http://casadei-cc.herokuapp.com/) you can see a live demo of it hosted on Heroku!
 
-## Helpful Pages for the Amazon API
-1. [Articles & Tutorials](http://aws.amazon.com/articles/Product%20Advertising%20API?_encoding=UTF8&jiveRedirect=1)
-2. [Documentation](http://aws.amazon.com/archives/Product%20Advertising%20API?_encoding=UTF8&jiveRedirect=1)
-3. [Developer Guide](http://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html)
-4. [Sample Code & Libraries](http://aws.amazon.com/code/Product%20Advertising%20API?_encoding=UTF8&jiveRedirect=1)
+## Setting Up
 
-## Notes
-In order to use the Amazon Product Advertising API, you will need to register an Amazon Developer's Account.
+Clone this repository and run these commands:
 
-## Evaluation
-We will evaluate you on the following criteria:
+```
+npm install
+bundle install
+rake bower:update
+```
 
-1. Did your submission meet the objectives?
-2. Did you document the procedure for running setting up and using your code?
-3. Did you follow the instructions for the submission?
-4. Were you creative in your approach to the solution?
-5. Did you include tests?
-6. Did you illustrate an understanding of the programming language you chose?
+From now on your project is ready to use and you can start rails server whenever you want.
+
+## Running Tests
+
+Is there a total of 32 specs in both client and server. You can run it through these commands:
+
+```
+rake spec
+rake spec:javascript
+```
+
+You also can view Jasmine's reports through http://localhost:3000/specs in your browser.
+
+## Not fullfilled wishes
+
+Unfortunatelly I'm also commited with another things (mainly my full time job and a master degree of Computer Science) and so I could not finish on time all things that I wanted to:
+
+- Reach 100% of test coverage;
+- Refactor the SASS;
+- Improve the semantic of HTML;
+- Create more Angular directives to represent data (like book);
+- Use JSLint;
+- Configure my environment to make use of some kind of file watcher that runs the specs automagically;
+
+## Weird Thing
+
+I've noticed that total items of a Google Books API response can vary between requests. You can see it running:
+
+```
+curl "https://www.googleapis.com/books/v1/volumes/?maxResults=30&q=game+of+thrones&startIndex=0"   | head -10;
+curl "https://www.googleapis.com/books/v1/volumes/?maxResults=30&q=game+of+thrones&startIndex=50"  | head -10; 
+curl "https://www.googleapis.com/books/v1/volumes/?maxResults=30&q=game+of+thrones&startIndex=100" | head -10;
+```
+
+Compare the result of totalItem in each request. Did you see it?
+
+## Thanks
+
+Thanks for the opportunity to participate this challenge. I hope leave a good impression.
