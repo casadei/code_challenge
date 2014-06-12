@@ -13,7 +13,7 @@ It's a small project that makes use of:
 A search engine was created to satisfy the challenge requisites. Although the focus of my project is on client side, 
 I've made a small abstraction* of the Google Books API in order to demonstrate some knowledge of server side too.
 
-* I belive that is not the optimal solution in the real world. I'd probably choose to make requests directly from Google API without intermediaries.
+OBS. I belive that is not the optimal solution in the real world. I'd probably choose to make requests directly from Google API without intermediaries.
 
 This project is benefited with two levels of cache. One on client that stores requests made by user while he is on the page and another on server abstraction that stores the searches for one hour.
 
@@ -71,4 +71,4 @@ Compare the result of totalItem in each request. Did you see it?
 
 ## Thanks
 
-Thanks for the opportunity to participate this challenge. I hope leave a good impression.
+Thanks for the opportunity to participate of this challenge. I hope leave a good impression.
