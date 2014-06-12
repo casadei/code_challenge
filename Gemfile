@@ -52,6 +52,9 @@ gem "bower-rails", "~> 0.7.3"
 group :test, :development do
   gem 'jasmine-rails'
   gem 'rspec-rails', '~> 3.0.0'
+end
+
+group :test do
   gem 'webmock'
 end
 
