@@ -5,6 +5,8 @@ class Api::BooksController < ApplicationController
   
   # Constants
   
+  FORWARD_PARAMETERS = [ "q", "filtering", "printType", "orderBy" ]
+
   ALLOWED_PARAMETERS = {
     :filtering => [ "preview", "full" ],
     :printType => [ "books", "magazines" ],
@@ -52,7 +54,9 @@ class Api::BooksController < ApplicationController
 
     def get_data_from_google
       page = [1, params[:page].to_i].max 
-      provider_params = params.except!(:page)  
+      provider_params = {}
+
+      params.each { |key, value| provider_params[key] = value if FORWARD_PARAMETERS.include?(key) }
 
       return GoogleBooks.find(provider_params, page, request.remote_ip)
     end
