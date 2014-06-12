@@ -34,13 +34,13 @@
     </h1>
   </div>
 
-  <ul class="books" ng-controller="BooksCtrl as bookCtrl" 
+  <ul class="books" ng-controller="BooksCtrl as booksCtrl" 
                     ng-class="{ list: searchCtrl.showAsList, gallery: searchCtrl.showAsGallery } ">
     <li ng-repeat="book in searchCtrl.books">
       <div class="details">
         <div class="cover">
           <a ng-href="{{book.link}}" title="{{book.title}}">
-            <img ng-src="{{bookCtrl.getBestImage(book)}}" />
+            <img ng-src="{{booksCtrl.getBestImage(book)}}" />
           </a>
         </div>
         <div class="content">
@@ -62,8 +62,9 @@
             </span>
           </div>
           <div class="price">
-            <span ng-hide="book.sale" class="unavailable">not for sale</span>
-            <span ng-show="book.sale"  class="available">
+            <span ng-show="booksCtrl.isNotForSale(book)" class="unavailable">not for sale</span>
+            <span ng-show="booksCtrl.isForFree(book)" class="available">FREE</span>
+            <span ng-show="booksCtrl.isForSale(book)" class="available">
               FROM {{book.price | currency : book.currency + ' '}}
             </span>
           </div>

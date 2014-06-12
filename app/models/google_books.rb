@@ -47,6 +47,9 @@ class GoogleBooks
       sale   = item[:saleInfo]
       price  = sale[:retailPrice] unless sale.nil?
       images = volume[:imageLinks]
+
+      puts sale
+      puts price
       
       transformed = { :thumbnails => {} }
 
@@ -56,23 +59,19 @@ class GoogleBooks
       safe_insert transformed, :description, volume, :description
       safe_insert transformed, :publisher, volume, :publisher
       safe_insert transformed, :date, volume, :publishedDate
-
-      safe_insert transformed, :sale, sale, :saleability, false do |value|
-        value != "NOT_FOR_SALE"
-      end 
-
+      safe_insert transformed, :sale, sale, :saleability, "NOT_FOR_SALE"
       safe_insert transformed, :currency, price, :currencyCode
       safe_insert transformed, :price, price, :amount, 0
+
       safe_insert transformed[:thumbnails], :normal, images, :thumbnail
       safe_insert transformed[:thumbnails], :small,  images, :smallThumbnail
 
       return transformed
     end
 
-    def safe_insert(dest, dest_key, source, source_key, default = "", &transform)
+    def safe_insert(dest, dest_key, source, source_key, default = "")
       unless source.nil? then
         dest[dest_key] = source[source_key] || default
-        dest[dest_key] = transform.call(dest[dest_key]) if block_given?
       end
     end    
 end
